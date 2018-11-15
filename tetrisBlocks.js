@@ -121,3 +121,5 @@ let tetreminoBlockO = [
     posY: 32
   }
 ];
+
+export { tetreminoBlockI, tetreminoBlockJ, tetreminoBlockL, tetreminoBlockO };
