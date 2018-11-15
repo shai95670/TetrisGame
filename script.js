@@ -1,3 +1,4 @@
+import { tetreminoBlockI, tetreminoBlockJ, tetreminoBlockL, tetreminoBlockO } from './tetrisBlocks.js';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const height = canvas.height;
@@ -51,129 +52,6 @@ const drawBoard = () => {
 // maybe use the boardBlock object to create the tetromino blocks
 // tetremino block will be built by multiple boardBlock objects
 
-let tetreminoBlockI = [
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 192,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 224,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 256,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 287,
-    posY: 0
-  }
-];
-
-let tetreminoBlockJ = [
-  {
-    color: 'purple',
-    width: 32,
-    height: 32,
-    posX: 192,
-    posY: 0
-  },
-  {
-    color: 'purple',
-    width: 32,
-    height: 32,
-    posX: 224,
-    posY: 0
-  },
-  {
-    color: 'purple',
-    width: 32,
-    height: 32,
-    posX: 256,
-    posY: 0
-  },
-  {
-    color: 'purple',
-    width: 32,
-    height: 32,
-    posX: 256,
-    posY: 32,
-  }
-];
-
-let tetreminoBlockL = [
-  {
-    color: 'orange',
-    width: 32,
-    height: 32,
-    posX: 192,
-    posY: 0
-  },
-  {
-    color: 'orange',
-    width: 32,
-    height: 32,
-    posX: 224,
-    posY: 0
-  },
-  {
-    color: 'orange',
-    width: 32,
-    height: 32,
-    posX: 256,
-    posY: 0
-  },
-  {
-    color: 'orange',
-    width: 32,
-    height: 32,
-    posX: 192,
-    posY: 32
-  }
-];
-
-let tetreminoBlockO = [
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 192,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 224,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 256,
-    posY: 0
-  },
-  {
-    color: 'cyan',
-    width: 32,
-    height: 32,
-    posX: 287,
-    posY: 0
-  }
-];
 
 const drawTerminoBlock = (block) => {
    for (var i = 0; i < block.length; i++) {
@@ -184,4 +62,5 @@ const drawTerminoBlock = (block) => {
 };
 
 drawBoard();
-drawTerminoBlock(tetreminoBlockL);
+drawTerminoBlock(tetreminoBlockO);
+
