@@ -73,10 +73,9 @@ class TetrisBoard {
 }
 
 class ZBlock extends TetrisBoard{
-  constructor(firstBlockXPos){
+  constructor(){
     super();
     this.color = 'red';
-    this.firstBlockXPos = firstBlockXPos;
     this.skeleton = [
       { 
         playerIndexX: blockPosX,
@@ -113,6 +112,9 @@ class ZBlock extends TetrisBoard{
          ctx.fillStyle = this.color;
          ctx.fillRect(this.skeleton[index].playerPixelX, this.skeleton[index].playerPixelY, super.cellWidth, super.cellHeight); ;  
     }
+  }
+  getSkeletonBrick(index){
+    return this.skeleton[index];
   }
 }
 
@@ -156,6 +158,9 @@ class OBlock extends TetrisBoard{
          ctx.fillStyle = this.color;
          ctx.fillRect(this.skeleton[index].playerPixelX, this.skeleton[index].playerPixelY, super.cellWidth, super.cellHeight); ;  
     }
+  }
+  getSkeletonBrick(index){
+    return this.skeleton[index];
   }
 }
 
@@ -210,15 +215,46 @@ function checkFilledRow(){
 
 function drawTetrisBlocks(){
   for (let index = 0; index < tetrisBlocks.length; index++) {
-    tetrisBlocks[index].draw();
+      tetrisBlocks[index].draw();
   }
 }
 
+
+// loop through the tetrisbricks list,
+// for each brick in that list check its skeletons brick x and y positions,
+// with each cells x and y pos within the logic grid,
+// if the coordinates  match between the current brick being checked and the cell
+// push each object with in the bricks skeleton attribute into its equal coord cell
+// thus updating the cells with their bricks accordingly
 function updateGrid(){
-  for (let index = 0; index < tetrisBlocks.length; index++) {
-      ;
+  
+  let index = 0;
+  let currentBrickCheckedIndex = 0;
+
+  while (index < tetrisBlocks.length) { // loop untill the last brick
+
+    let currentCheckedSkeleton = tetrisBlocks[index].skeleton;
+    let currentCheckedSkeletonBrick = tetrisBlocks[index].getSkeletonBrick(currentBrickCheckedIndex);
+
+    for (let row = 0; row < tetrisboard.rows; row++) {
+      for (let column = 0; column < tetrisboard.columns; column++) {
+        if (currentCheckedSkeletonBrick.playerIndexX === tetrisboard.grid[row][column].xPos &&
+            currentCheckedSkeletonBrick.playerIndexY === tetrisboard.grid[row][column].yPos && 
+            ! tetrisboard.grid[row][column].cellIndex === 1) {
+              tetrisboard.grid[row][column].containedBlock.push(currentCheckedSkeletonBrick);
+              currentBrickCheckedIndex += 1;
+              break;
+        } else {
+          continue;
+        }   
+      }
+    }
+    if (currentBrickCheckedIndex === 3) {
+       index += 1;
+       currentBrickCheckedIndex = 0;
+    }
   }
-};
+}
 
 const main = () => {
   ctx.clearRect(0, 0, width, height); 
@@ -226,7 +262,7 @@ const main = () => {
   drawTetrisBlocks()
 
   //checkFilledRow()
-  //updateGrid() // updates grid with blocks in cells 
+  updateGrid() // updates grid with blocks in cells 
   //if(checkBrickGridCollision()){
   //   generateTetrisBlocks();   
   //};
