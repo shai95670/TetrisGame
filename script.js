@@ -183,12 +183,10 @@ function generateTetrisBlocks() {
    tetrisBlocks.push(block);
 }
 
-const tetrisboard = new TetrisBoard();
-generateTetrisBlocks();
-tetrisboard.createLogicGrid()
-
-console.log(tetrisBlocks);
-console.log(tetrisboard.grid);
+// const tetrisboard = new TetrisBoard();
+// generateTetrisBlocks();
+// tetrisboard.createLogicGrid();
+// updateGrid()
 
 function clearRow(rowNum) {
   for (let index = 0; index < tetrisboard.grid[rowNum].length; index++) {
@@ -235,26 +233,41 @@ function updateGrid(){
 
     let currentCheckedSkeleton = tetrisBlocks[index].skeleton;
     let currentCheckedSkeletonBrick = tetrisBlocks[index].getSkeletonBrick(currentBrickCheckedIndex);
+    console.log(tetrisboard.rows);
+    
 
     for (let row = 0; row < tetrisboard.rows; row++) {
       for (let column = 0; column < tetrisboard.columns; column++) {
+        //console.log(currentCheckedSkeletonBrick.playerIndexX, tetrisboard.grid[row][column].xPos);     
         if (currentCheckedSkeletonBrick.playerIndexX === tetrisboard.grid[row][column].xPos &&
             currentCheckedSkeletonBrick.playerIndexY === tetrisboard.grid[row][column].yPos && 
-            ! tetrisboard.grid[row][column].cellIndex === 1) {
+            tetrisboard.grid[row][column].cellIndex != 1) {
+              console.log(currentCheckedSkeletonBrick.playerIndexX, tetrisboard.grid[row][column].xPos);
               tetrisboard.grid[row][column].containedBlock.push(currentCheckedSkeletonBrick);
-              currentBrickCheckedIndex += 1;
-              break;
-        } else {
-          continue;
+              currentBrickCheckedIndex++;
+              break;           
         }   
       }
     }
+    console.log(currentBrickCheckedIndex);
+    
     if (currentBrickCheckedIndex === 3) {
-       index += 1;
+       index++;
        currentBrickCheckedIndex = 0;
     }
+
+    //index++;
   }
 }
+
+const tetrisboard = new TetrisBoard();
+generateTetrisBlocks();
+tetrisboard.createLogicGrid();
+updateGrid();
+
+console.log(tetrisBlocks);
+console.log(tetrisboard.grid);
+
 
 const main = () => {
   ctx.clearRect(0, 0, width, height); 
@@ -262,7 +275,7 @@ const main = () => {
   drawTetrisBlocks()
 
   //checkFilledRow()
-  updateGrid() // updates grid with blocks in cells 
+  //updateGrid() // updates grid with blocks in cells 
   //if(checkBrickGridCollision()){
   //   generateTetrisBlocks();   
   //};
