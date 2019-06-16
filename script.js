@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const height = canvas.height;
 const width = canvas.width;
-const blockPosX = 5;
+const startBlockPosX = 5;
 let tetrisBlocks = [];
 
 
@@ -78,30 +78,30 @@ class ZBlock extends TetrisBoard{
     this.color = 'red';
     this.skeleton = [
       { 
-        playerIndexX: blockPosX,
+        playerIndexX: startBlockPosX,
         playerIndexY: 0,
         playerPixelX: 5 * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX + 1,
+        playerIndexX: startBlockPosX + 1,
         playerIndexY: 0,
-        playerPixelX: (blockPosX + 1) * super.cellWidth,
+        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX + 1,
+        playerIndexX: startBlockPosX + 1,
         playerIndexY: 1,
-        playerPixelX: (blockPosX + 1) * super.cellWidth,
+        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX + 2,
+        playerIndexX: startBlockPosX + 2,
         playerIndexY: 1,
-        playerPixelX: (blockPosX + 2) * super.cellWidth,
+        playerPixelX: (startBlockPosX + 2) * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       }
@@ -115,6 +115,9 @@ class ZBlock extends TetrisBoard{
   }
   getSkeletonBrick(index){
     return this.skeleton[index];
+  }
+  getSkeleton(){
+    return this.skeleton;
   }
 }
 
@@ -124,30 +127,30 @@ class OBlock extends TetrisBoard{
     this.color = 'yellow';
     this.skeleton = [
       { 
-        playerIndexX: blockPosX,
+        playerIndexX: startBlockPosX,
         playerIndexY: 0,
-        playerPixelX: blockPosX * super.cellWidth,
+        playerPixelX: startBlockPosX * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX + 1,
+        playerIndexX: startBlockPosX + 1,
         playerIndexY: 0,
-        playerPixelX: (blockPosX + 1) * super.cellWidth,
+        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX,
+        playerIndexX: startBlockPosX,
         playerIndexY: 1,
-        playerPixelX: blockPosX * super.cellWidth,
+        playerPixelX: startBlockPosX * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: blockPosX,
+        playerIndexX: startBlockPosX + 1,
         playerIndexY: 1,
-        playerPixelX: (blockPosX + 1) * super.cellWidth,
+        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       }
@@ -162,15 +165,47 @@ class OBlock extends TetrisBoard{
   getSkeletonBrick(index){
     return this.skeleton[index];
   }
+  getSkeleton(){
+    return this.skeleton;
+  }
 }
 
+function updateTetrisBlockPosition(keyCode) {
+  switch (keyCode) {
+    case 39:
+      for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
+          let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton(); 
+          if (skeleton[index].playerIndexX === tetrisboard.columns - 2) {
+            return;
+          }
+          skeleton[index].playerIndexX++;
+          skeleton[index].playerPixelX += 29;
+      }
+    break;
+    case 37:  
+        for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
+          let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
+          // if () {
+          //   return;
+          // }
+          skeleton[index].playerIndexX--;
+          skeleton[index].playerPixelX -= 29;
+        }
+    break;  
+  }
+}
+
+// update the brick indexes
 document.onkeydown = (event) => {
-  if (event.keyCode === 38 && brick.playerIndexY > 0) { //up
-    brick.playerPixelY -= 1;
-    console.log('up');
-  } else if (event.keyCode === 39) {
-    console.log('left');  
-  } 
+  if (event.keyCode === 38) { // up
+    //updateTetrisBlockPosition();
+  } else if (event.keyCode === 39) { // right
+    updateTetrisBlockPosition(39);
+    console.log(tetrisBlocks[tetrisBlocks.length-1]);
+  } else if (event.keyCode === 37) { // left
+    updateTetrisBlockPosition(37);
+    console.log(tetrisBlocks[tetrisBlocks.length-1]);
+  }
 };
 
 function getRandomNum(list) {
@@ -231,57 +266,57 @@ function updateGrid(){
 
   while (index < tetrisBlocks.length) { // loop untill the last brick
 
-    let currentCheckedSkeleton = tetrisBlocks[index].skeleton;
-    let currentCheckedSkeletonBrick = tetrisBlocks[index].getSkeletonBrick(currentBrickCheckedIndex);
-    console.log(tetrisboard.rows);
-    
+    let currentCheckedSkeletonBrick = tetrisBlocks[index].getSkeletonBrick(currentBrickCheckedIndex); 
 
     for (let row = 0; row < tetrisboard.rows; row++) {
-      for (let column = 0; column < tetrisboard.columns; column++) {
-        //console.log(currentCheckedSkeletonBrick.playerIndexX, tetrisboard.grid[row][column].xPos);     
+      for (let column = 0; column < tetrisboard.columns; column++) { 
         if (currentCheckedSkeletonBrick.playerIndexX === tetrisboard.grid[row][column].xPos &&
             currentCheckedSkeletonBrick.playerIndexY === tetrisboard.grid[row][column].yPos && 
             tetrisboard.grid[row][column].cellIndex != 1) {
-              console.log(currentCheckedSkeletonBrick.playerIndexX, tetrisboard.grid[row][column].xPos);
-              tetrisboard.grid[row][column].containedBlock.push(currentCheckedSkeletonBrick);
-              currentBrickCheckedIndex++;
-              break;           
+            console.log(currentCheckedSkeletonBrick.playerIndexX, tetrisboard.grid[row][column].xPos);
+            console.log(currentCheckedSkeletonBrick.playerIndexY, tetrisboard.grid[row][column].yPos);
+            tetrisboard.grid[row][column].containedBlock.push(currentCheckedSkeletonBrick);
+            currentBrickCheckedIndex++;
+            break;           
         }   
       }
     }
+
     console.log(currentBrickCheckedIndex);
     
-    if (currentBrickCheckedIndex === 3) {
+    if (currentBrickCheckedIndex === 4) {
        index++;
        currentBrickCheckedIndex = 0;
     }
-
-    //index++;
   }
 }
 
-const tetrisboard = new TetrisBoard();
-generateTetrisBlocks();
-tetrisboard.createLogicGrid();
-updateGrid();
 
-console.log(tetrisBlocks);
-console.log(tetrisboard.grid);
 
 
 const main = () => {
   ctx.clearRect(0, 0, width, height); 
   tetrisboard.drawBoard();
-  drawTetrisBlocks()
+  drawTetrisBlocks();
+  //checkFilledRow();
+  
+  // if a brick collides with something on the grid that means that:
+  // 1. we can generate a new tetris brick
+  // 2. we can update the grid with the current sate of tetris block 
+  //    positions with in the grid cells them selfs
+  // if(checkBrickGridCollision()){
+  //   generateTetrisBlocks(); 
+  //   updateGrid() // updates grid with blocks in cells   
+  // };
 
-  //checkFilledRow()
-  //updateGrid() // updates grid with blocks in cells 
-  //if(checkBrickGridCollision()){
-  //   generateTetrisBlocks();   
-  //};
-  //updateTetrisBlockPosition();
   //isGameOver();
 }
+
+const tetrisboard = new TetrisBoard();
+generateTetrisBlocks(); // start with one block generated
+tetrisboard.createLogicGrid();
+
+console.log(tetrisboard.grid);
 
 
 setInterval(main, 50);
