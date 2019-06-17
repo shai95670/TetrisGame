@@ -78,30 +78,30 @@ class ZBlock extends TetrisBoard{
     this.color = 'red';
     this.skeleton = [
       { 
-        playerIndexX: startBlockPosX,
+        playerIndexX: 5,
         playerIndexY: 0,
         playerPixelX: 5 * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX + 1,
+        playerIndexX: 6,
         playerIndexY: 0,
-        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
+        playerPixelX: 6 * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX + 1,
+        playerIndexX: 6,
         playerIndexY: 1,
-        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
+        playerPixelX: 6 * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX + 2,
+        playerIndexX: 7,
         playerIndexY: 1,
-        playerPixelX: (startBlockPosX + 2) * super.cellWidth,
+        playerPixelX: 7 * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       }
@@ -127,30 +127,30 @@ class OBlock extends TetrisBoard{
     this.color = 'yellow';
     this.skeleton = [
       { 
-        playerIndexX: startBlockPosX,
+        playerIndexX: 5,
         playerIndexY: 0,
-        playerPixelX: startBlockPosX * super.cellWidth,
+        playerPixelX: 5 * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX + 1,
+        playerIndexX: 6,
         playerIndexY: 0,
-        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
+        playerPixelX: 6 * super.cellWidth,
         playerPixelY: 0 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX,
+        playerIndexX: 5,
         playerIndexY: 1,
-        playerPixelX: startBlockPosX * super.cellWidth,
+        playerPixelX: 5 * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       },
       {
-        playerIndexX: startBlockPosX + 1,
+        playerIndexX: 6,
         playerIndexY: 1,
-        playerPixelX: (startBlockPosX + 1) * super.cellWidth,
+        playerPixelX: 6 * super.cellWidth,
         playerPixelY: 1 * super.cellHeight,
         index: 1
       }
@@ -175,21 +175,19 @@ function updateTetrisBlockPosition(keyCode) {
     case 39:
       for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
           let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton(); 
-          if (skeleton[index].playerIndexX === tetrisboard.columns - 2) {
-            return;
+          if (skeleton[index].playerIndexX < tetrisboard.columns - 1 && tetrisboard.grid[skeleton[index].playerIndexY][skeleton[index].playerIndexX+1].cellIndex != 1) {
+            skeleton[index].playerIndexX++;
+            skeleton[index].playerPixelX += 29;
           }
-          skeleton[index].playerIndexX++;
-          skeleton[index].playerPixelX += 29;
       }
     break;
     case 37:  
         for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
           let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
-          // if () {
-          //   return;
-          // }
-          skeleton[index].playerIndexX--;
-          skeleton[index].playerPixelX -= 29;
+          if (skeleton[index].playerIndexX > 0 && tetrisboard.grid[skeleton[index].playerIndexY][skeleton[index].playerIndexX-1].cellIndex != 1) {
+            skeleton[index].playerIndexX--;
+            skeleton[index].playerPixelX -= 29;
+          }
         }
     break;  
   }
