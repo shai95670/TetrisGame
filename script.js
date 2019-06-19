@@ -2,7 +2,6 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const height = canvas.height;
 const width = canvas.width;
-const startBlockPosX = 5;
 let tetrisBlocks = [];
 
 
@@ -19,26 +18,12 @@ class Cell {
 // 1 - blocked cell 
 class TetrisBoard {
   constructor(){
-    this.columns = 10;
-    this.rows = 14
-    TetrisBoard.prototype.cellWidth = width / this.columns;
-    TetrisBoard.prototype.cellHeight = height / this.rows;
-    this.grid = [
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    ];
+    this.columns = 20;
+    this.rows = 20;
+    this.color = 'black';
+    TetrisBoard.prototype.cellWidth = width / this.columns; // 300 / 10 = 30
+    TetrisBoard.prototype.cellHeight = height / this.rows;  // 400 / 10 = 40  
+    this.grid =  [];
   }
 
   drawBoard(){
@@ -47,13 +32,10 @@ class TetrisBoard {
       
         let cellX = this.cellWidth * column;
         let cellY = this.cellHeight * row;
+
+        console.log(cellX, cellY);
         
-        //fill the obstacles in with red
-        if (this.grid[row][column].cellIndex === 1) {
-          ctx.fillStyle = 'purple';
-        } else {
-          ctx.fillStyle = 'black';
-        }
+        ctx.fillStyle = this.color;
         ctx.fillRect(cellX, cellY, this.cellWidth, this.cellHeight);
       }
     }
@@ -61,12 +43,9 @@ class TetrisBoard {
 
   createLogicGrid(){
     for (let row = 0; row < this.rows; row++) {
+      this.grid.push([]);
       for (let column = 0; column < this.columns; column++) {
-          if (this.grid[row][column] === 1) {
-            this.grid[row][column] = new Cell(column, row, [], 1);
-          } else {
-            this.grid[row][column] = new Cell(column, row, [], 0);
-          }
+          this.grid[row].push(new Cell(column, row, [], 0));
       }
     }
   }
@@ -110,7 +89,7 @@ class ZBlock extends TetrisBoard{
   draw(){
     for (let index = 0; index < this.skeleton.length; index++) {
          ctx.fillStyle = this.color;
-         ctx.fillRect(this.skeleton[index].playerPixelX, this.skeleton[index].playerPixelY, super.cellWidth, super.cellHeight); ;  
+         ctx.fillRect(this.skeleton[index].playerPixelX, this.skeleton[index].playerPixelY, super.cellWidth, super.cellHeight);  
     }
   }
   getSkeletonBrick(index){
@@ -170,26 +149,37 @@ class OBlock extends TetrisBoard{
   }
 }
 
+// bug 
 function updateTetrisBlockPosition(keyCode) {
   switch (keyCode) {
-    case 39:
+    case 39: // right
       for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
-          let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton(); 
-          if (skeleton[index].playerIndexX < tetrisboard.columns - 1 && tetrisboard.grid[skeleton[index].playerIndexY][skeleton[index].playerIndexX+1].cellIndex != 1) {
-            skeleton[index].playerIndexX++;
-            skeleton[index].playerPixelX += 29;
-          }
+        let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton(); 
+        if (skeleton[index].playerIndexX === tetrisboard.columns - 1) {
+            return;
+        }
+        skeleton[index].playerIndexX += 1;
+        skeleton[index].playerPixelX += 29;
       }
     break;
-    case 37:  
+    case 37:  // left
         for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
           let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
-          if (skeleton[index].playerIndexX > 0 && tetrisboard.grid[skeleton[index].playerIndexY][skeleton[index].playerIndexX-1].cellIndex != 1) {
-            skeleton[index].playerIndexX--;
-            skeleton[index].playerPixelX -= 29;
+          if (skeleton[index].playerIndexX != 0) {
+              skeleton[index].playerIndexX -= 1;
+              skeleton[index].playerPixelX -= 29;
           }
         }
-    break;  
+    break;
+    case 40:  // down
+    for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
+      let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
+      if (skeleton[index].playerIndexX < tetrisboard.rows -1) {
+          skeleton[index].playerIndexY += 1;
+          skeleton[index].playerPixelY += 29;
+      }
+    }
+    break;   
   }
 }
 
@@ -199,10 +189,13 @@ document.onkeydown = (event) => {
     //updateTetrisBlockPosition();
   } else if (event.keyCode === 39) { // right
     updateTetrisBlockPosition(39);
-    console.log(tetrisBlocks[tetrisBlocks.length-1]);
+    console.log(tetrisBlocks[tetrisBlocks.length-1].skeleton);
   } else if (event.keyCode === 37) { // left
     updateTetrisBlockPosition(37);
-    console.log(tetrisBlocks[tetrisBlocks.length-1]);
+    console.log(tetrisBlocks[tetrisBlocks.length-1].skeleton);
+  } else if (event.keyCode === 40) { // down
+    updateTetrisBlockPosition(40);
+    console.log(tetrisBlocks[tetrisBlocks.length-1].skeleton);
   }
 };
 
@@ -314,7 +307,9 @@ const tetrisboard = new TetrisBoard();
 generateTetrisBlocks(); // start with one block generated
 tetrisboard.createLogicGrid();
 
+
 console.log(tetrisboard.grid);
 
 
-setInterval(main, 50);
+setInterval(main, 70);
+
