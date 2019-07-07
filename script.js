@@ -69,7 +69,7 @@ class TetrisBlock {
   draw(){
     for (let index = 0; index < this.skeleton.length; index++) {
          ctx.fillStyle = this.color;
-         ctx.fillRect(this.skeleton[index].pixelX, this.skeleton[index].pixelY, tetrisboard.cellWidth, tetrisboard.cellHeight);  
+         ctx.fillRect(this.skeleton[index].pixelX, this.skeleton[index].pixelY, tetrisboard.cellWidth, tetrisboard.cellHeight, 0.2);  
     }
   }
   getSkeletonBrick(index){
@@ -97,14 +97,6 @@ class SBlock extends TetrisBlock{
     super(color, skeleton);
   }  
 }
-
-class TBlock extends TetrisBlock{
-  constructor(color, skeleton){
-    super(color, skeleton);
-  }  
-}
-
-
 
 // update the brick indexes
 document.onkeydown = (event) => {
@@ -136,6 +128,7 @@ document.onkeydown = (event) => {
       skeleton[index].blockIndexY += 1;
       skeleton[index].pixelY += 20;
     }
+    console.log(tetrisBlocks[tetrisBlocks.length-1].skeleton);
   }
 };
 
@@ -234,102 +227,46 @@ function generateTetrisBlocks() {
                             pixelY: tetrisboard.grid[1][12].yPosPixel,
                             index: 1
                             },
-                        ]),
-      new TBlock('purple', [
-                          {
-                            blockIndexX: 10,
-                            blockIndexY: 1,
-                            pixelX: tetrisboard.grid[1][10].xPosPixel,
-                            pixelY: tetrisboard.grid[1][10].yPosPixel,
-                            index: 1
-                          },
-                          {
-                            blockIndexX: 11,
-                            blockIndexY: 1,
-                            pixelX: tetrisboard.grid[1][11].xPosPixel,
-                            pixelY: tetrisboard.grid[1][11].yPosPixel,
-                            index: 1
-                            },
-                            {
-                            blockIndexX: 12,
-                            blockIndexY: 1,
-                            pixelX: tetrisboard.grid[1][12].xPosPixel,
-                            pixelY: tetrisboard.grid[1][12].yPosPixel,
-                            index: 1
-                            },
-                            {
-                            blockIndexX: 11,
-                            blockIndexY: 0,
-                            pixelX: tetrisboard.grid[0][11].xPosPixel,
-                            pixelY: tetrisboard.grid[0][11].yPosPixel,
-                            index: 1
-                            },
-                        ])                                                       
+                        ])                                     
    ];
    var tetrisblock = constructorList[getRandomNum(constructorList)];
    tetrisBlocks.push(tetrisblock);
 }
 
-function removeBlock(array, element){
-  var index = array.indexOf(element);
-  if (index > -1) {
-    array.splice(index, 1);
-  }
-  // array = [2, 9]
-  //console.log(array);
-};
-
-// takes a row num,
-// loop through all the blocks in the tetris list
-// add + 1 to blockIndexY of all the blocks above rownum
-// stop the loop at rownum
-function dropTetrisBlocks(rownum){
-  for (let tetrisBlockIndex = 0; tetrisBlockIndex < tetrisBlocks.length; tetrisBlockIndex++) {
-    for (let singleBlockIndex = 0; singleBlockIndex < tetrisBlocks[tetrisBlockIndex].skeleton.length; singleBlockIndex++) {
-      if (tetrisBlocks[tetrisBlockIndex].skeleton[singleBlockIndex].blockIndexY < rownum) {
-          tetrisBlocks[tetrisBlockIndex].skeleton[singleBlockIndex].blockIndexY += 1;
-      }
-    }
-  }
-};
-
-// loop through tetris blocks list
-// if tetris block has a rownum ie blockIndexY equal to that of the rownum
-// clear those blocks away
-// all the other blocks above should have their blockIndexY added plus 1 
-// ie they drop to the next row
 function clearRow(rowNum) {
-  for (let tetrisBlockIndex = 0; tetrisBlockIndex < tetrisBlocks.length; tetrisBlockIndex++) {
-    for (let singleBlockIndex = 0; singleBlockIndex < tetrisBlocks[tetrisBlockIndex].skeleton.length; singleBlockIndex++) {
-      if (tetrisBlocks[tetrisBlockIndex].skeleton[singleBlockIndex].blockIndexY === rowNum) {
-          removeBlock(tetrisBlocks, tetrisBlocks[tetrisBlockIndex].skeleton[singleBlockIndex]);
-      }
-    }
-  } 
-  //dropTetrisBlocks(rowNum);
+  for (let index = 0; index < tetrisboard.grid[rowNum].length; index++) {
+      tetrisboard.grid[rowNum][index].containedBlock.pop(); 
+  }
 }
 
-function sumRows(rownum) {
-  let counter = 0;
-  for (let index = 0; index < 20; index++) {
-    console.log(tetrisboard.grid[rownum][index]);
-    if(tetrisboard.grid[rownum][index].containedBlock.length > 0){
-        counter += 1;
-        console.log(counter);
+// return true if fille row
+function checkRow(array){
+  numberOfFilledCells = 0;
+  for (let index = 0; index < array.length; index++) {
+    if (array[index].containedBlock.length === 1) {
+      numberOfFilledCells += 1;
     }
   }
-  return counter;
+  
+  if (numberOfFilledCells === (tetrisboard.columns-1)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function checkFilledRow(){
+  let filledCellCounter = 0;
   for (let row = 0; row < tetrisboard.rows; row++) {
-    if (sumRows(row) === tetrisboard.columns) {       
-       clearRow(row);
+    if (checkRow(tetrisboard.grid[row])) {
+       console.log('filled 6');
+      //clearRow(row);
     } else {
-       continue;
+      continue;
     }
   }
 }
+
 
 function drawTetrisBlocks(){
   for (let index = 0; index < tetrisBlocks.length; index++) {
@@ -345,29 +282,14 @@ function drawTetrisBlocks(){
 // push each object with in the bricks skeleton attribute into its equal coord cell
 // thus updating the cells with their bricks accordingly
 function updateGrid(){
-  
-  //let index = 0;
-  let currentBrickCheckedIndex = 0;
+   
+  for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
+    let currentBrick = tetrisBlocks[tetrisBlocks.length-1].getSkeletonBrick(index);
+    let currentBrickXIndex = tetrisBlocks[tetrisBlocks.length-1].getSkeletonBrick(index).blockIndexX;
+    let currentBrickYIndex = tetrisBlocks[tetrisBlocks.length-1].getSkeletonBrick(index).blockIndexY;
 
-  while (true) { // loop untill the last brick
-
-    let currentCheckedSkeletonBrick = tetrisBlocks[tetrisBlocks.length-1].getSkeletonBrick(currentBrickCheckedIndex); 
-    
-    console.log(currentCheckedSkeletonBrick);
-    for (let row = 0; row < tetrisboard.rows; row++) {
-      for (let column = 0; column < tetrisboard.columns; column++) { 
-        if (tetrisboard.grid[currentCheckedSkeletonBrick.blockIndexY][currentCheckedSkeletonBrick.blockIndexX].cellIndex != 1 &&
-            currentCheckedSkeletonBrick.blockIndexX === tetrisboard.grid[row][column].xPos &&
-            currentCheckedSkeletonBrick.blockIndexY === tetrisboard.grid[row][column].yPos) { 
-            tetrisboard.grid[row][column].containedBlock.push(currentCheckedSkeletonBrick);
-            currentBrickCheckedIndex++;
-            break;           
-        }   
-      }
-    }  
-    if (currentBrickCheckedIndex === 4) {
-       currentBrickCheckedIndex = 0;
-       break;
+    if(tetrisboard.grid[currentBrickYIndex][currentBrickXIndex]){
+       tetrisboard.grid[currentBrickYIndex][currentBrickXIndex].containedBlock.push(currentBrick);
     }
   }
   console.log(tetrisboard.grid);
@@ -377,6 +299,7 @@ function checkBrickBottomCollision() {
   let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton(); 
   
   // bottom
+  // check only the bricks that will collide with the bottom
   if(skeleton[0].blockIndexY >= tetrisboard.rows - 1 ||
      skeleton[1].blockIndexY >= tetrisboard.rows - 1 ||
      skeleton[2].blockIndexY >= tetrisboard.rows - 1 || 
@@ -410,29 +333,20 @@ function checkBrickOnBrickCollision(){
               tetrisboard.grid[skeleton[3].blockIndexY + 1][skeleton[3].blockIndexX].containedBlock.length > 0) {           
               return true;               
           }   
-    break;
+      break;
     case 'yellow': 
             if (tetrisboard.grid[skeleton[2].blockIndexY + 1][skeleton[2].blockIndexX].containedBlock.length > 0 ||
                 tetrisboard.grid[skeleton[3].blockIndexY + 1][skeleton[3].blockIndexX].containedBlock.length > 0) {         
                 return true;                   
             } 
-    break;
+        break;
     case 'red':
           if (tetrisboard.grid[skeleton[0].blockIndexY + 1][skeleton[0].blockIndexX].containedBlock.length > 0 ||
               tetrisboard.grid[skeleton[2].blockIndexY + 1][skeleton[2].blockIndexX].containedBlock.length > 0 ||
               tetrisboard.grid[skeleton[3].blockIndexY + 1][skeleton[3].blockIndexX].containedBlock.length > 0) {          
               return true;                 
           }   
-    break;
-    case 'purple':
-      if (tetrisboard.grid[skeleton[0].blockIndexY + 1][skeleton[0].blockIndexX].containedBlock.length > 0 ||
-          tetrisboard.grid[skeleton[1].blockIndexY + 1][skeleton[1].blockIndexX].containedBlock.length > 0 ||
-          tetrisboard.grid[skeleton[2].blockIndexY + 1][skeleton[2].blockIndexX].containedBlock.length > 0) {          
-          return true;                 
-      }   
-      break;         
-  
-  
+      break;
   }
 }
 
@@ -440,7 +354,7 @@ const main = () => {
   ctx.clearRect(0, 0, width, height); 
   tetrisboard.drawBoard();
   drawTetrisBlocks();
-  //checkFilledRow();
+  checkFilledRow();
 
   // for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
   //   let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
@@ -455,7 +369,6 @@ const main = () => {
   if(checkBrickBottomCollision() || checkBrickOnBrickCollision()){
      updateGrid();
      generateTetrisBlocks();
-     checkFilledRow();
   }
  
   //isGameOver();
