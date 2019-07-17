@@ -21,6 +21,7 @@ class Cell {
 // 1 - blocked cell 
 class TetrisBoard {
   constructor(){
+    // 400 blocks
     this.columns = 20;
     this.rows = 20;
     this.color = 'black';
@@ -239,7 +240,7 @@ function clearRow(rowNum) {
   }
 }
 
-// return true if fille row
+// return true if the row is filled
 function checkRow(array){
   numberOfFilledCells = 0;
   for (let index = 0; index < array.length; index++) {
@@ -248,7 +249,7 @@ function checkRow(array){
     }
   }
   
-  if (numberOfFilledCells === (tetrisboard.columns-1)) {
+  if (numberOfFilledCells === 4) { // (tetrisboard.columns-1)
     return true;
   } else {
     return false;
@@ -258,15 +259,20 @@ function checkRow(array){
 function checkFilledRow(){
   let filledCellCounter = 0;
   for (let row = 0; row < tetrisboard.rows; row++) {
+    console.log(row);
     if (checkRow(tetrisboard.grid[row])) {
        console.log('filled 6');
-      //clearRow(row);
+       clearRow(row);
     } else {
       continue;
     }
   }
 }
 
+// draws the tetris blocks from the tetrisBlocks list, we have two data objects for the tetris blocks
+// that are colliding, the tetrisBlocks and the grid itself - each cell with in the grid can hold a single,
+// tetris block 
+// bug - the blocks wont be cleard because they are drawn from the list itself and not from the grid cells
 
 function drawTetrisBlocks(){
   for (let index = 0; index < tetrisBlocks.length; index++) {
@@ -354,7 +360,6 @@ const main = () => {
   ctx.clearRect(0, 0, width, height); 
   tetrisboard.drawBoard();
   drawTetrisBlocks();
-  checkFilledRow();
 
   // for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
   //   let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
@@ -369,6 +374,7 @@ const main = () => {
   if(checkBrickBottomCollision() || checkBrickOnBrickCollision()){
      updateGrid();
      generateTetrisBlocks();
+     checkFilledRow();
   }
  
   //isGameOver();
