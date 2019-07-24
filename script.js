@@ -446,6 +446,8 @@ function removeSpecificBrick(skeleton, rowOfCells) {
           skeleton[indexSkeleton].blockIndexY
       ) {
         // brick contained with in the cleared row
+        // remove blocks from block list and from grid
+        //cells
         tetrisboard.grid[skeleton[indexSkeleton].blockIndexY][
           skeleton[indexSkeleton].blockIndexX
         ].containedBlock.pop();
@@ -481,33 +483,35 @@ function checkRow(array) {
   }
 }
 
-function checkContainedBlockInCells(BlockX, BlockY) {
-  nextCellFilled = true;
-  while (nextCellFilled) {
-    if (tetrisBoard.grid[BlockY + 1][BlockX].containedBlock.length < 1) {
-      nextCellFilled = false;
-      return nextCellFilled;
-    } else if (tetrisBoard.grid[BlockY + 1][BlockX].containedBlock.length > 0) {
-      return nextCellFilled;
-    }
-  }
+function incresseYPosBlockList(BlockObject) {
+  BlockObject.blockIndexY += 1;
 }
 
-function incresseYPos(array) {
+function incresseYPosGridCellBlocks(BlockObject){
+  console.log(BlockObject.blockIndexX);
+  let yPos = BlockObject.blockIndexY;
+  let xPos = BlockObject.blockIndexX;
+  tetrisboard.grid[yPos][xPos].containedBlock.pop();
+  tetrisboard.grid[yPos + 1][xPos].containedBlock.push(BlockObject);
+}
+
+function checkBlocksNextCell(array) {
   for (let index = 0; index < array.length; index++) {
-    if (
-      !checkContainedBlockInCells(
-        array[index].blockIndexX,
-        array[index].blockIndexY
-      )
-    ) {
+    let yPos = array[index].blockIndexY;
+    let xPos = array[index].blockIndexX;
+    // incresse Y pos
+    if (tetrisboard.grid[yPos + 1][xPos].containedBlock.length === 0) {
+      incresseYPosBlockList(array[index]);
+      incresseYPosGridCellBlocks(array[index]);
+    } else if (tetrisboard.grid[yPos + 1][xPos].containedBlock.length === 1) {
+      continue;
     }
   }
 }
 
 function dropUpperBlocks() {
-  for (let index = 0; index < tetrisBlocks.length; index++) {
-    incresseYPos(tetrisBlocks[index].skeleton);
+  for (let index = 0; index < tetrisBlocks.length-1; index++) {
+    checkBlocksNextCell(tetrisBlocks[index].skeleton);
   }
 }
 
@@ -517,7 +521,7 @@ function checkFilledRow() {
     //console.log(tetrisboard.grid[row]);
     if (checkRow(tetrisboard.grid[row])) {
       clearRow(tetrisboard.grid[row]);
-      //dropUpperBlocks();
+      dropUpperBlocks(); 
     } else {
       continue;
     }
@@ -563,7 +567,7 @@ function updateGrid() {
       ].containedBlock.push(currentBrick);
     }
   }
-  console.log(tetrisboard.grid);
+  console.log(tetrisboard.grid[0][0]);
 }
 
 function checkBrickBottomCollision() {
@@ -690,16 +694,21 @@ function checkBrickOnBrickCollision() {
   }
 }
 
+function moveCurrentBlock() {
+   for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
+    let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
+    skeleton[index].blockIndexY += 0.5;
+    skeleton[index].pixelY += 10;
+  }
+};
+
 const main = () => {
   ctx.clearRect(0, 0, width, height);
   tetrisboard.drawBoard();
   drawTetrisBlocks();
 
-  // for (let index = 0; index < tetrisBlocks[tetrisBlocks.length-1].getSkeleton().length; index++) {
-  //   let skeleton = tetrisBlocks[tetrisBlocks.length-1].getSkeleton();
-  //   skeleton[index].blockIndexY += 1;
-  //   skeleton[index].pixelY += 20;
-  // }
+
+  //moveCurrentBlock();
 
   // if a brick collides with something on the grid that means that, ie the floor or another brick:
   // 1. we can generate a new tetris brick
