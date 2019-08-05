@@ -430,9 +430,7 @@ function getFilledCells(array) {
 
 // has to also be removed from the grid itself
 function removeSpecificBrick(skeleton, rowOfCells) {
-  //console.log(rowOfCells);
   let rowOfFilledCells = getFilledCells(rowOfCells);
-  //console.log(rowOfFilledCells);
 
   for (let indexCells = 0; indexCells < rowOfFilledCells.length; indexCells++) {
     for (
@@ -461,14 +459,15 @@ function removeSpecificBrick(skeleton, rowOfCells) {
 }
 
 function clearRow(rowOfCells) {
+  // [{}, {}]
   for (let index = 0; index < tetrisBlocks.length; index++) {
-    let currentSkeleton = tetrisBlocks[index].getSkeleton();
+    let currentSkeleton = tetrisBlocks[index].getSkeleton(); //[{}, {}, {}, {}]
     removeSpecificBrick(currentSkeleton, rowOfCells);
   }
 }
 
 // return true if the row is filled
-function checkRow(array) {
+function checkIfRowFilled(array) {
   numberOfFilledCells = 0;
   for (let index = 0; index < array.length; index++) {
     if (array[index].containedBlock.length === 1) {
@@ -511,39 +510,29 @@ function advanceBlockToNextRow(BlockObject) {
   pushBrickToNextCelll(previousYPos, previousXPos, BlockObject);
 }
 
-function checkBlocksNextCell(BlockObject) {
-  //console.log(BlockObject.color);
-  //loop through a tetrisblock skeleton
-  for (let index = 0; index < BlockObject.skeleton.length; index++) {
-    // let yPos = BlockObject.skeleton[index].blockIndexY;
-    // let xPos = BlockObject.skeleton[index].blockIndexX;
-    if (BlockObject.skeleton[index].blockIndexY > 18) {
-      continue;
-    }
-    // incresse Y pos
-    while (
-      !tetrisboard.grid[20][BlockObject.skeleton[index].blockIndexX]
-      // tetrisboard.grid[BlockObject.skeleton[index].blockIndexY + 1][
-      //   BlockObject.skeleton[index].blockIndexX
-      // ].containedBlock.length === 0
-    ) {
-      console.log(BlockObject.skeleton[index]);
-      advanceBlockToNextRow(BlockObject.skeleton[index]);
-      console.log(
-        BlockObject.skeleton[index].blockIndexY,
-        BlockObject.skeleton[index].blockIndexX
-      );
-    }
-    // if (yPos > 18) {
-    //   continue;
-    // }
-    // if (tetrisboard.grid[yPos + 1][xPos].containedBlock.length === 0) {
-    //   console.log(BlockObject.skeleton[index]);
-    //   incresseYPosGridCellBlocks(BlockObject.skeleton[index]);
-    // } else if (tetrisboard.grid[yPos + 1][xPos].containedBlock.length === 1) {
-    //   continue;
-    // }
+function checkGridInBounds(nextGridYPos) {
+  if (nextGridYPos <= 19) {
+    return true;
+  } else if (nextGridYPos > 19) {
+    return false;
   }
+}
+
+function hasNoBlockInCell(cellYPos, cellXPos) {
+  if (cellYPos > 18) {
+    return false;
+  }
+  return tetrisboard.grid[cellYPos + 1][cellXPos].containedBlock.length === 0;
+}
+
+function checkDropConditions(BlockObject) {
+  while (
+    checkGridInBounds(BlockObject.blockIndexY + 1) &&
+    hasNoBlockInCell(BlockObject.blockIndexY, BlockObject.blockIndexX)
+  ) {
+    advanceBlockToNextRow(BlockObject);
+  }
+  //console.log(tetrisboard.grid);
 }
 
 function removeZeroLengthBlocks() {
@@ -554,39 +543,63 @@ function removeZeroLengthBlocks() {
   }
 }
 
+function getBricksToDrop(upperGrid) {
+  let list = [];
+
+  for (let row = 0; row < upperGrid.length; row++) {
+    for (let cellIndex = 0; cellIndex < upperGrid[row].length; cellIndex++) {
+      if (upperGrid[row][cellIndex].containedBlock.length === 1) {
+        list.push(upperGrid[row][cellIndex].containedBlock[0]);
+      }
+    }
+  }
+
+  return list;
+}
+
 /*
  Loop through all the tetris blocks in the array,
  untill We reach the last tetris Block,
  Which has still not landed
 */
-function dropUpperBlocks() {
-  for (let index = 0; index < tetrisBlocks.length - 1; index++) {
-    //console.log(tetrisBlocks[index]);
-    checkBlocksNextCell(tetrisBlocks[index]); // Pass the object itself
-  }
-  //console.log(tetrisboard.grid);
+function dropUpperBlocks(upperGridPortaion) {
+  console.log(upperGridPortaion);
+  let bricksToDrop = getBricksToDrop(upperGridPortaion);
+  //console.log(bricksToDrop);
+  // for (let index = bricksToDrop.length - 1; index >= 0; index--) {
+  //   console.log(index);
+  //   checkDropConditions(bricksToDrop[index]); // Pass the object itself
+  // }
+}
+
+function compareNumbers(a, b) {
+  return a - b;
+}
+
+function getLastClearedRow(rows) {
+  rows.sort(compareNumbers);
+  return rows[0];
 }
 
 function checkFilledRow() {
   let filledCellCounter = 0;
+  let rowNumbersCleared = [];
+
   for (let row = 0; row < tetrisboard.rows; row++) {
-    //console.log(tetrisboard.grid[row]);
-    if (checkRow(tetrisboard.grid[row])) {
+    if (checkIfRowFilled(tetrisboard.grid[row])) {
+      rowNumbersCleared.push(row);
       clearRow(tetrisboard.grid[row]);
       //We can already assume that all the tetrisBlocks,
       //Prior to the last one have landed and are not,
       //Changing positions any  more
-      dropUpperBlocks();
+      let BoundaryRow = getLastClearedRow(rowNumbersCleared);
+      let upperGrid = tetrisboard.grid.slice(0, BoundaryRow);
+      dropUpperBlocks(upperGrid);
     } else {
       continue;
     }
   }
 }
-
-// draws the tetris blocks from the tetrisBlocks list, we have two data objects for the tetris blocks
-// that are colliding, the tetrisBlocks and the grid itself - each cell with in the grid can hold a single,
-// tetris block
-// bug - the blocks wont be cleard because they are drawn from the list itself and not from the grid cells
 
 function drawTetrisBlocks() {
   for (let index = 0; index < tetrisBlocks.length; index++) {
@@ -600,7 +613,7 @@ function drawTetrisBlocks() {
 // if the coordinates  match between the current brick being checked and the cell
 // push each object with in the bricks skeleton attribute into its equal coord cell
 // thus updating the cells with their bricks accordingly
-function updateGrid() {
+function updateGridWithBlockPositions() {
   for (
     let index = 0;
     index < tetrisBlocks[tetrisBlocks.length - 1].getSkeleton().length;
@@ -622,7 +635,6 @@ function updateGrid() {
       ].containedBlock.push(currentBrick);
     }
   }
-  //console.log(tetrisboard.grid[0][0]);
 }
 
 function checkBrickBottomCollision() {
@@ -766,6 +778,7 @@ const main = () => {
   tetrisboard.drawBoard();
   drawTetrisBlocks();
   removeZeroLengthBlocks();
+  checkFilledRow();
 
   //moveCurrentBlock();
 
@@ -774,11 +787,9 @@ const main = () => {
   // 2. we can update the grid with the current sate of tetris block
   //   positions with in the grid cells them selfs
   if (checkBrickBottomCollision() || checkBrickOnBrickCollision()) {
-    //console.log(tetrisboard.grid[20][10]);
-    updateGrid();
+    updateGridWithBlockPositions();
     generateTetrisBlocks();
-    checkFilledRow();
-    //console.log(tetrisBlocks);
+    //checkFilledRow();
   }
 
   //isGameOver();
@@ -787,6 +798,5 @@ const main = () => {
 const tetrisboard = new TetrisBoard();
 tetrisboard.createLogicGrid();
 generateTetrisBlocks(); // start with one block generated
-console.log(tetrisboard.grid[19][6]);
 
 setInterval(main, 80);
