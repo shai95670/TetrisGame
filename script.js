@@ -565,11 +565,11 @@ function getBricksToDrop(upperGrid) {
 function dropUpperBlocks(upperGridPortaion) {
   console.log(upperGridPortaion);
   let bricksToDrop = getBricksToDrop(upperGridPortaion);
-  //console.log(bricksToDrop);
-  // for (let index = bricksToDrop.length - 1; index >= 0; index--) {
-  //   console.log(index);
-  //   checkDropConditions(bricksToDrop[index]); // Pass the object itself
-  // }
+  console.log(bricksToDrop);
+  for (let index = bricksToDrop.length - 1; index >= 0; index--) {
+    console.log(index);
+    checkDropConditions(bricksToDrop[index]); // Pass the object itself
+  }
 }
 
 function compareNumbers(a, b) {
@@ -582,13 +582,16 @@ function getLastClearedRow(rows) {
 }
 
 function checkFilledRow() {
-  let filledCellCounter = 0;
+  //change function name
+  //let numberOfRowsToDrop = 0; get number of rows to drop based on rows cleared
   let rowNumbersCleared = [];
 
   for (let row = 0; row < tetrisboard.rows; row++) {
+    // loop starting from the end of the grid ie index 19
+    // if next row has no filled cells stop looping
     if (checkIfRowFilled(tetrisboard.grid[row])) {
       rowNumbersCleared.push(row);
-      clearRow(tetrisboard.grid[row]);
+      clearRow(tetrisboard.grid[row]); // [cell, cell]
       //We can already assume that all the tetrisBlocks,
       //Prior to the last one have landed and are not,
       //Changing positions any  more
