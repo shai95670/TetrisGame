@@ -93,44 +93,54 @@ class TetrisBlock {
   getSkeleton() {
     return this.skeleton;
   }
+  flip(){
+     
+  }
 }
 
+// can be flliped once
 class ZBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// cannot be fliped
 class OBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// can be flliped once
 class SBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// can be fllipped three times
 class TBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// can be flliped once
 class IBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// can be fllipped three times
 class LBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
   }
 }
 
+// can be fllipped three times
 class JBlock extends TetrisBlock {
   constructor(color, skeleton) {
     super(color, skeleton);
@@ -188,6 +198,8 @@ document.onkeydown = event => {
       skeleton[index].blockIndexY += 1;
       skeleton[index].pixelY += 20;
     }
+  } else if (event.keyCode === 38) { // up arrow
+    //tetrisBlocks[tetrisBlocks.length-1].flip();
   }
 };
 
