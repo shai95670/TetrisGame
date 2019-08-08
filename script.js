@@ -533,8 +533,9 @@ function removeZeroLengthBlocks() {
 function getBricksToDrop(upperGrid) {
   let list = [];
 
-  for (let row = 0; row < upperGrid.length; row++) { //loop from the last row upwards
-    for (let cellIndex = upperGrid[row].length; cellIndex >= 0; cellIndex++) {
+  for (let row = upperGrid.length-1; row >= 0; row--) { //loop from the last row upwards
+    console.log(row);
+    for (let cellIndex = 0; cellIndex < upperGrid[row].length; cellIndex++) {
       if (upperGrid[row][cellIndex].containedBlock.length === 1) {
         list.push(upperGrid[row][cellIndex].containedBlock[0]);
       }
