@@ -534,7 +534,7 @@ function getBricksToDrop(upperGrid) {
   let list = [];
 
   for (let row = 0; row < upperGrid.length; row++) { //loop from the last row upwards
-    for (let cellIndex = 0; cellIndex < upperGrid[row].length; cellIndex++) {
+    for (let cellIndex = upperGrid[row].length; cellIndex >= 0; cellIndex++) {
       if (upperGrid[row][cellIndex].containedBlock.length === 1) {
         list.push(upperGrid[row][cellIndex].containedBlock[0]);
       }
