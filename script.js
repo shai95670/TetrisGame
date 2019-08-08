@@ -1,3 +1,4 @@
+    
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const height = canvas.height;
@@ -196,36 +197,36 @@ function getRandomNum(list) {
 
 function generateTetrisBlocks() {
   let constructorList = [
-    // new SBlock("green", [
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 1,
-    //     pixelX: tetrisboard.grid[1][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[1][10].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 1,
-    //     pixelX: tetrisboard.grid[1][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[1][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][12].yPosPixel,
-    //     index: 1
-    //   }
-    // ]),
+    new SBlock("green", [
+      {
+        blockIndexX: 10,
+        blockIndexY: 1,
+        pixelX: tetrisboard.grid[1][10].xPosPixel,
+        pixelY: tetrisboard.grid[1][10].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 1,
+        pixelX: tetrisboard.grid[1][11].xPosPixel,
+        pixelY: tetrisboard.grid[1][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][11].xPosPixel,
+        pixelY: tetrisboard.grid[0][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][12].xPosPixel,
+        pixelY: tetrisboard.grid[0][12].yPosPixel,
+        index: 1
+      }
+    ]),
     new OBlock("yellow", [
       {
         blockIndexX: 10,
@@ -285,127 +286,127 @@ function generateTetrisBlocks() {
         pixelY: tetrisboard.grid[1][12].yPosPixel,
         index: 1
       }
+    ]),
+    new TBlock("purple", [
+      {
+        blockIndexX: 10,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][10].xPosPixel,
+        pixelY: tetrisboard.grid[0][10].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][11].xPosPixel,
+        pixelY: tetrisboard.grid[0][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][12].xPosPixel,
+        pixelY: tetrisboard.grid[0][12].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 1,
+        pixelX: tetrisboard.grid[1][11].xPosPixel,
+        pixelY: tetrisboard.grid[1][11].yPosPixel,
+        index: 1
+      }
+    ]),
+    new IBlock("Aqua", [
+      {
+        blockIndexX: 10,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][10].xPosPixel,
+        pixelY: tetrisboard.grid[0][10].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][11].xPosPixel,
+        pixelY: tetrisboard.grid[0][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][12].xPosPixel,
+        pixelY: tetrisboard.grid[0][12].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 13,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][13].xPosPixel,
+        pixelY: tetrisboard.grid[0][13].yPosPixel,
+        index: 1
+      }
+    ]),
+    new LBlock("orange", [
+      {
+        blockIndexX: 10,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][10].xPosPixel,
+        pixelY: tetrisboard.grid[0][10].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][11].xPosPixel,
+        pixelY: tetrisboard.grid[0][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][12].xPosPixel,
+        pixelY: tetrisboard.grid[0][12].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 10,
+        blockIndexY: 1,
+        pixelX: tetrisboard.grid[1][10].xPosPixel,
+        pixelY: tetrisboard.grid[1][10].yPosPixel,
+        index: 1
+      }
+    ]),
+    new JBlock("blue", [
+      {
+        blockIndexX: 10,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][10].xPosPixel,
+        pixelY: tetrisboard.grid[0][10].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 11,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][11].xPosPixel,
+        pixelY: tetrisboard.grid[0][11].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 0,
+        pixelX: tetrisboard.grid[0][12].xPosPixel,
+        pixelY: tetrisboard.grid[0][12].yPosPixel,
+        index: 1
+      },
+      {
+        blockIndexX: 12,
+        blockIndexY: 1,
+        pixelX: tetrisboard.grid[1][12].xPosPixel,
+        pixelY: tetrisboard.grid[1][12].yPosPixel,
+        index: 1
+      }
     ])
-    // new TBlock("purple", [
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][10].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][12].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 1,
-    //     pixelX: tetrisboard.grid[1][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[1][11].yPosPixel,
-    //     index: 1
-    //   }
-    // ]),
-    // new IBlock("Aqua", [
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][10].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][12].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 13,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][13].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][13].yPosPixel,
-    //     index: 1
-    //   }
-    // ]),
-    // new LBlock("orange", [
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][10].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][12].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 1,
-    //     pixelX: tetrisboard.grid[1][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[1][10].yPosPixel,
-    //     index: 1
-    //   }
-    // ]),
-    // new JBlock("blue", [
-    //   {
-    //     blockIndexX: 10,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][10].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][10].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 11,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][11].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][11].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 0,
-    //     pixelX: tetrisboard.grid[0][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[0][12].yPosPixel,
-    //     index: 1
-    //   },
-    //   {
-    //     blockIndexX: 12,
-    //     blockIndexY: 1,
-    //     pixelX: tetrisboard.grid[1][12].xPosPixel,
-    //     pixelY: tetrisboard.grid[1][12].yPosPixel,
-    //     index: 1
-    //   }
-    // ])
   ];
   let tetrisblock = constructorList[getRandomNum(constructorList)];
   tetrisBlocks.push(tetrisblock);
@@ -466,23 +467,6 @@ function clearRow(rowOfCells) {
   }
 }
 
-// return true if the row is filled
-function checkIfRowFilled(array) {
-  numberOfFilledCells = 0;
-  for (let index = 0; index < array.length; index++) {
-    if (array[index].containedBlock.length === 1) {
-      numberOfFilledCells += 1;
-    }
-  }
-
-  if (numberOfFilledCells === 4) {
-    //tetrisboard.columns
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function incresseYPosBlockList(BlockObject) {
   BlockObject.blockIndexY += 1;
 }
@@ -498,16 +482,20 @@ function incresseYBlockListAttributes(BlockObject) {
 
 function pushBrickToNextCelll(yPos, xPos, BlockObject) {
   // pop previous cell
-  tetrisboard.grid[yPos][xPos].containedBlock.pop();
+  tetrisboard.grid[yPos-1][xPos].containedBlock.pop();
   // push to the next cell
-  tetrisboard.grid[yPos + 1][xPos].containedBlock.push(BlockObject);
+  if(checkGridInBounds(yPos)){
+     tetrisboard.grid[yPos][xPos].containedBlock.push(BlockObject);
+  }
 }
 
-function advanceBlockToNextRow(BlockObject) {
-  let previousYPos = BlockObject.blockIndexY;
-  let previousXPos = BlockObject.blockIndexX;
-  incresseYBlockListAttributes(BlockObject);
-  pushBrickToNextCelll(previousYPos, previousXPos, BlockObject);
+function advanceBlockToNextRow(BlockObject, YToDrop) {
+  for(let index = 0; index < YToDrop; index++) { 
+    // let previousYPos = BlockObject.blockIndexY; // 17
+    // let previousXPos = BlockObject.blockIndexX; // 11
+    incresseYBlockListAttributes(BlockObject);
+    pushBrickToNextCelll(BlockObject.blockIndexY, BlockObject.blockIndexX, BlockObject);
+  }
 }
 
 function checkGridInBounds(nextGridYPos) {
@@ -525,14 +513,13 @@ function hasNoBlockInCell(cellYPos, cellXPos) {
   return tetrisboard.grid[cellYPos + 1][cellXPos].containedBlock.length === 0;
 }
 
-function checkDropConditions(BlockObject) {
-  while (
-    checkGridInBounds(BlockObject.blockIndexY + 1) &&
-    hasNoBlockInCell(BlockObject.blockIndexY, BlockObject.blockIndexX)
-  ) {
-    advanceBlockToNextRow(BlockObject);
-  }
-  //console.log(tetrisboard.grid);
+function checkDropConditions(BlockObject, nRowsToDrop) {
+  // while (
+  //   checkGridInBounds(BlockObject.blockIndexY + 1) &&
+  //   hasNoBlockInCell(BlockObject.blockIndexY, BlockObject.blockIndexX)
+  // ) {
+  advanceBlockToNextRow(BlockObject, nRowsToDrop);
+  // }
 }
 
 function removeZeroLengthBlocks() {
@@ -546,7 +533,7 @@ function removeZeroLengthBlocks() {
 function getBricksToDrop(upperGrid) {
   let list = [];
 
-  for (let row = 0; row < upperGrid.length; row++) {
+  for (let row = 0; row < upperGrid.length; row++) { //loop from the last row upwards
     for (let cellIndex = 0; cellIndex < upperGrid[row].length; cellIndex++) {
       if (upperGrid[row][cellIndex].containedBlock.length === 1) {
         list.push(upperGrid[row][cellIndex].containedBlock[0]);
@@ -562,13 +549,12 @@ function getBricksToDrop(upperGrid) {
  untill We reach the last tetris Block,
  Which has still not landed
 */
-function dropUpperBlocks(upperGridPortaion) {
+function dropUpperBlocks(upperGridPortaion, numOfRowsToDrop) {
   console.log(upperGridPortaion);
   let bricksToDrop = getBricksToDrop(upperGridPortaion);
   console.log(bricksToDrop);
   for (let index = bricksToDrop.length - 1; index >= 0; index--) {
-    console.log(index);
-    checkDropConditions(bricksToDrop[index]); // Pass the object itself
+    checkDropConditions(bricksToDrop[index], numOfRowsToDrop); // Pass the object itself
   }
 }
 
@@ -581,26 +567,67 @@ function getLastClearedRow(rows) {
   return rows[0];
 }
 
-function checkFilledRow() {
-  //change function name
-  //let numberOfRowsToDrop = 0; get number of rows to drop based on rows cleared
-  let rowNumbersCleared = [];
+function checkIfRowFilled(array) {
+  let numberOfFilledCells = 0;
+  for (let index = 0; index < array.length; index++) {
+    if (array[index].containedBlock.length === 1) {
+      numberOfFilledCells += 1;
+    }
+  }
 
-  for (let row = 0; row < tetrisboard.rows; row++) {
-    // loop starting from the end of the grid ie index 19
-    // if next row has no filled cells stop looping
-    if (checkIfRowFilled(tetrisboard.grid[row])) {
-      rowNumbersCleared.push(row);
-      clearRow(tetrisboard.grid[row]); // [cell, cell]
+  if (numberOfFilledCells === 4) {
+    //tetrisboard.columns
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkIfRowEmpthy(array){
+  let numberOfEmpthyCells = 0;
+  for (let index = 0; index < array.length; index++) {
+    if (array[index].containedBlock.length === 0) {
+      numberOfEmpthyCells += 1;
+    }
+  }
+
+  if (numberOfEmpthyCells === tetrisboard.columns) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkFilledRow() { //change function name
+  let rowNumbersCleared = [];
+  let numberOfRowsToDrop = undefined;
+  let BoundaryRow = undefined;
+  let upperGrid = undefined;
+  // loop starting from the end of the grid ie index 19
+  // if next row has no filled cells stop looping
+  for (let row = tetrisboard.rows-1; row >= 0; row--) {
+    //console.log(tetrisboard.grid[row]);
+    if(checkIfRowEmpthy(tetrisboard.grid[row])){ //19, 18
+      break;
+    }
+    if(checkIfRowFilled(tetrisboard.grid[row])) { //19, 18
+      rowNumbersCleared.push(row); // [19, 18]
+      clearRow(tetrisboard.grid[row]); // [cell*19]
       //We can already assume that all the tetrisBlocks,
       //Prior to the last one have landed and are not,
       //Changing positions any  more
-      let BoundaryRow = getLastClearedRow(rowNumbersCleared);
-      let upperGrid = tetrisboard.grid.slice(0, BoundaryRow);
-      dropUpperBlocks(upperGrid);
-    } else {
-      continue;
+      //dropUpperBlocks(upperGrid);
     }
+  }
+  console.log(upperGrid, numberOfRowsToDrop);
+  numberOfRowsToDrop = rowNumbersCleared.length;
+  BoundaryRow = getLastClearedRow(rowNumbersCleared); //18
+  upperGrid = tetrisboard.grid.slice(0, BoundaryRow); // (0, 18) not including
+  // Drop the upper blocks only when clearing of the,
+  // lower rows is done
+  if (upperGrid !== undefined && BoundaryRow !== undefined) {
+    console.log(upperGrid, numberOfRowsToDrop);
+    dropUpperBlocks(upperGrid, numberOfRowsToDrop);
   }
 }
 
@@ -781,7 +808,7 @@ const main = () => {
   tetrisboard.drawBoard();
   drawTetrisBlocks();
   removeZeroLengthBlocks();
-  checkFilledRow();
+  //checkFilledRow();
 
   //moveCurrentBlock();
 
@@ -792,7 +819,7 @@ const main = () => {
   if (checkBrickBottomCollision() || checkBrickOnBrickCollision()) {
     updateGridWithBlockPositions();
     generateTetrisBlocks();
-    //checkFilledRow();
+    checkFilledRow();
   }
 
   //isGameOver();
