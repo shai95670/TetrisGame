@@ -74,7 +74,7 @@ class TetrisBlock {
     this.color = color;
     this.skeleton = skeleton;
     this.mods = mods;
-    this.currentMod = this.mods[0];
+    this.currentModIndex = 0;
   }
   draw() {
     for (let index = 0; index < this.skeleton.length; index++) {
@@ -108,12 +108,38 @@ class ZBlock extends TetrisBlock {
     super.flip();
     // can be flipped back and forth 2
     // mods
-    switch (this.currentMod) {
-      case "mode1":
-        break;
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) { //x = 15, y = 20
       case "mode2":
+        this.skeleton[0].blockIndexX += 1;
+        this.skeleton[1].blockIndexY += 1;
+        this.skeleton[2].blockIndexX -= 1;
+        this.skeleton[3].blockIndexY += 1;
+        this.skeleton[3].blockIndexX -= 2;
+
+        this.skeleton[0].pixelX += 15;
+        this.skeleton[1].pixelY += 20;
+        this.skeleton[2].pixelX -= 15;
+        this.skeleton[3].pixelX -= 30;
+        this.skeleton[3].pixelY += 20;
+        break;
+      case "mode1":
+        this.skeleton[0].blockIndexX -= 1;
+        this.skeleton[1].blockIndexY -= 1;
+        this.skeleton[2].blockIndexX += 1;
+        this.skeleton[3].blockIndexX += 2;
+        this.skeleton[3].blockIndexY -= 1;
+
+        this.skeleton[0].pixelX -= 15;
+        this.skeleton[1].pixelY -= 20;
+        this.skeleton[2].pixelX += 15;
+        this.skeleton[3].pixelX += 30;
+        this.skeleton[3].pixelY -= 20;
         break;
     }
+    this.currentModIndex += 1;
   }
 }
 
@@ -122,12 +148,64 @@ class OBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
   }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+        break;
+      case "mode1":
+        break;
+    }
+    this.currentModIndex += 1;
+  }
 }
 
 // can be flliped once
 class SBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
+  }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+          this.skeleton[0].blockIndexX += 1;
+          this.skeleton[1].blockIndexY -= 1;
+          this.skeleton[2].blockIndexX -= 1;
+          this.skeleton[3].blockIndexY -= 1;
+          this.skeleton[3].blockIndexX -= 2;
+  
+          this.skeleton[0].pixelX += 15;
+          this.skeleton[1].pixelY -= 20;
+          this.skeleton[2].pixelX -= 15;
+          this.skeleton[3].pixelX -= 30;
+          this.skeleton[3].pixelY -= 20;
+        break;
+      case "mode1":
+          this.skeleton[0].blockIndexX -= 1;
+          this.skeleton[1].blockIndexY += 1;
+          this.skeleton[2].blockIndexX += 1;
+          this.skeleton[3].blockIndexY += 1;
+          this.skeleton[3].blockIndexX += 2;
+  
+          this.skeleton[0].pixelX -= 15;
+          this.skeleton[1].pixelY += 20;
+          this.skeleton[2].pixelX += 15;
+          this.skeleton[3].pixelX += 30;
+          this.skeleton[3].pixelY += 20;
+        break;
+    }
+    this.currentModIndex += 1;
   }
 }
 
@@ -136,12 +214,85 @@ class TBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
   }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+          this.skeleton[0].blockIndexX += 1;
+          this.skeleton[0].blockIndexY -= 1;
+          this.skeleton[2].blockIndexY += 1;
+          this.skeleton[2].blockIndexX -= 1;
+          this.skeleton[3].blockIndexY -= 1;
+          this.skeleton[3].blockIndexX -= 1;
+  
+          this.skeleton[0].pixelX += 15;
+          this.skeleton[0].pixelY -= 20;
+          this.skeleton[2].pixelY += 20;
+          this.skeleton[2].pixelX -= 15;
+          this.skeleton[3].pixelX -= 15;
+          this.skeleton[3].pixelY -= 20;
+        break;
+      case "mode3":
+        break;
+      case "mode4":
+        break;    
+      case "mode1":
+        break;
+    }
+    this.currentModIndex += 1;
+  }
 }
 
 // can be flliped once
 class IBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
+  }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+          this.skeleton[0].blockIndexX += 2;
+          this.skeleton[0].blockIndexY -= 2;
+          this.skeleton[1].blockIndexY -= 1;
+          this.skeleton[1].blockIndexX += 1;
+          this.skeleton[3].blockIndexY += 1;
+          this.skeleton[3].blockIndexX -= 1;
+  
+          this.skeleton[0].pixelX += 30;
+          this.skeleton[0].pixelY -= 40;
+          this.skeleton[1].pixelY -= 20;
+          this.skeleton[1].pixelX += 15;
+          this.skeleton[3].pixelX -= 15;
+          this.skeleton[3].pixelY += 20;
+        break;
+      case "mode1":
+          this.skeleton[0].blockIndexX -= 2;
+          this.skeleton[0].blockIndexY += 2;
+          this.skeleton[1].blockIndexY += 1;
+          this.skeleton[1].blockIndexX -= 1;
+          this.skeleton[3].blockIndexY -= 1;
+          this.skeleton[3].blockIndexX += 1;
+  
+          this.skeleton[0].pixelX -= 30;
+          this.skeleton[0].pixelY += 40;
+          this.skeleton[1].pixelY += 20;
+          this.skeleton[1].pixelX -= 15;
+          this.skeleton[3].pixelX += 15;
+          this.skeleton[3].pixelY -= 20;
+        break;
+    }
+    this.currentModIndex += 1;
   }
 }
 
@@ -150,12 +301,42 @@ class LBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
   }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+        break;
+      case "mode1":
+        break;
+    }
+    this.currentModIndex += 1;
+  }
 }
 
 // can be fllipped three times
 class JBlock extends TetrisBlock {
   constructor(color, skeleton, mods) {
     super(color, skeleton, mods);
+  }
+  flip() {
+    super.flip();
+    // can be flipped back and forth 2
+    // mods
+    if (this.currentModIndex === this.mods.length) {
+        this.currentModIndex = 0;
+    }
+    switch (this.mods[this.currentModIndex]) {
+      case "mode2":
+        break;
+      case "mode1":
+        break;
+    }
+    this.currentModIndex += 1;
   }
 }
 
@@ -164,7 +345,8 @@ document.onkeydown = event => {
   let skeleton = tetrisBlocks[tetrisBlocks.length - 1].getSkeleton();
   if (event.keyCode === 38) {
     // up
-    //updateTetrisBlockPosition();
+    tetrisBlocks[tetrisBlocks.length - 1].flip();
+    console.log(tetrisBlocks[tetrisBlocks.length - 1]);
   } else if (event.keyCode === 39) {
     // right
     if (
@@ -254,7 +436,7 @@ function generateTetrisBlocks() {
           index: 1
         }
       ],
-      ["mode1", "mode2"]
+      ["mode2", "mode1"]
     ),
     new OBlock(
       "yellow",
@@ -322,76 +504,76 @@ function generateTetrisBlocks() {
           index: 1
         }
       ],
-      ["mode1", "mode2"]
-      // ),
-      // new TBlock(
-      //   "purple",
-      //   [
-      //     {
-      //       blockIndexX: 10,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][10].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][10].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 11,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][11].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][11].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 12,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][12].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][12].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 11,
-      //       blockIndexY: 1,
-      //       pixelX: tetrisboard.grid[1][11].xPosPixel,
-      //       pixelY: tetrisboard.grid[1][11].yPosPixel,
-      //       index: 1
-      //     }
-      //   ],
-      //   ["mode1", "mode2", "mode3", "mode4"]
-      // ),
-      // new IBlock(
-      //   "Aqua",
-      //   [
-      //     {
-      //       blockIndexX: 10,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][10].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][10].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 11,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][11].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][11].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 12,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][12].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][12].yPosPixel,
-      //       index: 1
-      //     },
-      //     {
-      //       blockIndexX: 13,
-      //       blockIndexY: 0,
-      //       pixelX: tetrisboard.grid[0][13].xPosPixel,
-      //       pixelY: tetrisboard.grid[0][13].yPosPixel,
-      //       index: 1
-      //     }
-      //   ],
-      //   ["mode1", "mode2"]
-      // ),
+      ["mode2", "mode1"]
+      ),
+      new TBlock(
+        "purple",
+        [
+          {
+            blockIndexX: 10,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][10].xPosPixel,
+            pixelY: tetrisboard.grid[0][10].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 11,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][11].xPosPixel,
+            pixelY: tetrisboard.grid[0][11].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 12,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][12].xPosPixel,
+            pixelY: tetrisboard.grid[0][12].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 11,
+            blockIndexY: 1,
+            pixelX: tetrisboard.grid[1][11].xPosPixel,
+            pixelY: tetrisboard.grid[1][11].yPosPixel,
+            index: 1
+          }
+        ],
+        ["mode2", "mode3", "mode4", "mode1"]
+      ),
+      new IBlock(
+        "Aqua",
+        [
+          {
+            blockIndexX: 10,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][10].xPosPixel,
+            pixelY: tetrisboard.grid[0][10].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 11,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][11].xPosPixel,
+            pixelY: tetrisboard.grid[0][11].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 12,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][12].xPosPixel,
+            pixelY: tetrisboard.grid[0][12].yPosPixel,
+            index: 1
+          },
+          {
+            blockIndexX: 13,
+            blockIndexY: 0,
+            pixelX: tetrisboard.grid[0][13].xPosPixel,
+            pixelY: tetrisboard.grid[0][13].yPosPixel,
+            index: 1
+          }
+        ],
+        ["mode2", "mode1"]
+      )
       // new LBlock(
       //   "orange",
       //   [
@@ -459,7 +641,6 @@ function generateTetrisBlocks() {
       //     }
       //   ],
       //   ["mode1", "mode2", "mode3", "mode4"]
-    )
   ];
   let tetrisblock = constructorList[getRandomNum(constructorList)];
   tetrisBlocks.push(tetrisblock);
@@ -944,6 +1125,7 @@ const main = () => {
 // add end game
 // add movingBlocks
 // add opacity to the blocks
+// reduce number of cells
 
 const tetrisboard = new TetrisBoard();
 tetrisboard.createLogicGrid();
