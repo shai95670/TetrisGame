@@ -22,8 +22,8 @@ class Cell {
 class TetrisBoard {
   constructor() {
     // 400 blocks
-    this.columns = 20;
-    this.rows = 20;
+    this.columns = 10; //2
+    this.rows = 20;    //20
     this.color = "black";
     this.cellWidth = width / this.columns;
     this.cellHeight = height / this.rows;
@@ -123,10 +123,10 @@ class ZBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY += 1;
         this.skeleton[3].blockIndexX -= 2;
 
-        this.skeleton[0].pixelX += 15;
+        this.skeleton[0].pixelX += 30;
         this.skeleton[1].pixelY += 20;
-        this.skeleton[2].pixelX -= 15;
-        this.skeleton[3].pixelX -= 30;
+        this.skeleton[2].pixelX -= 30;
+        this.skeleton[3].pixelX -= 60;
         this.skeleton[3].pixelY += 20;
         break;
       case "mode1":
@@ -136,10 +136,10 @@ class ZBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX += 2;
         this.skeleton[3].blockIndexY -= 1;
 
-        this.skeleton[0].pixelX -= 15;
+        this.skeleton[0].pixelX -= 30;
         this.skeleton[1].pixelY -= 20;
-        this.skeleton[2].pixelX += 15;
-        this.skeleton[3].pixelX += 30;
+        this.skeleton[2].pixelX += 30;
+        this.skeleton[3].pixelX += 60;
         this.skeleton[3].pixelY -= 20;
         break;
     }
@@ -189,11 +189,11 @@ class SBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY -= 1;
         this.skeleton[3].blockIndexX -= 2;
 
-        this.skeleton[0].pixelX += 15;
-        this.skeleton[1].pixelY -= 20;
-        this.skeleton[2].pixelX -= 15;
-        this.skeleton[3].pixelX -= 30;
-        this.skeleton[3].pixelY -= 20;
+        this.skeleton[0].pixelX += 30; //15
+        this.skeleton[1].pixelY -= 20; //20
+        this.skeleton[2].pixelX -= 30; //15
+        this.skeleton[3].pixelX -= 60; //30
+        this.skeleton[3].pixelY -= 20; //20
         break;
       case "mode1":
         this.skeleton[0].blockIndexX -= 1;
@@ -202,11 +202,11 @@ class SBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY += 1;
         this.skeleton[3].blockIndexX += 2;
 
-        this.skeleton[0].pixelX -= 15;
-        this.skeleton[1].pixelY += 20;
-        this.skeleton[2].pixelX += 15;
-        this.skeleton[3].pixelX += 30;
-        this.skeleton[3].pixelY += 20;
+        this.skeleton[0].pixelX -= 30; //15
+        this.skeleton[1].pixelY += 20; //20
+        this.skeleton[2].pixelX += 30; //15
+        this.skeleton[3].pixelX += 60; //30
+        this.skeleton[3].pixelY += 20; //20
         break;
     }
     this.currentModIndex += 1;
@@ -234,11 +234,11 @@ class TBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY -= 1;
         this.skeleton[3].blockIndexX -= 1;
 
-        this.skeleton[0].pixelX += 15;
+        this.skeleton[0].pixelX += 30;
         this.skeleton[0].pixelY -= 20;
         this.skeleton[2].pixelY += 20;
-        this.skeleton[2].pixelX -= 15;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[2].pixelX -= 30;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY -= 20;
         break;
       case "mode3":
@@ -249,11 +249,11 @@ class TBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY -= 1;
         this.skeleton[3].blockIndexX += 1;
 
-        this.skeleton[0].pixelX += 15;
+        this.skeleton[0].pixelX += 30;
         this.skeleton[0].pixelY += 20;
         this.skeleton[2].pixelY -= 20;
-        this.skeleton[2].pixelX -= 15;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[2].pixelX -= 30;
+        this.skeleton[3].pixelX += 30;
         this.skeleton[3].pixelY -= 20;
         break;
       case "mode4":
@@ -264,11 +264,11 @@ class TBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY += 1;
         this.skeleton[3].blockIndexX += 1;
 
-        this.skeleton[0].pixelX -= 15;
+        this.skeleton[0].pixelX -= 30;
         this.skeleton[0].pixelY += 20;
         this.skeleton[2].pixelY -= 20;
-        this.skeleton[2].pixelX += 15;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[2].pixelX += 30;
+        this.skeleton[3].pixelX += 30;
         this.skeleton[3].pixelY += 20;
         break;
       case "mode1":
@@ -279,11 +279,11 @@ class TBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY += 1;
         this.skeleton[3].blockIndexX -= 1;
 
-        this.skeleton[0].pixelX -= 15;
+        this.skeleton[0].pixelX -= 30;
         this.skeleton[0].pixelY -= 20;
         this.skeleton[2].pixelY += 20;
-        this.skeleton[2].pixelX += 15;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[2].pixelX += 30;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY += 20;
         break;
     }
@@ -312,11 +312,11 @@ class IBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY += 1;
         this.skeleton[3].blockIndexX -= 1;
 
-        this.skeleton[0].pixelX += 30;
+        this.skeleton[0].pixelX += 60;
         this.skeleton[0].pixelY -= 40;
         this.skeleton[1].pixelY -= 20;
-        this.skeleton[1].pixelX += 15;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[1].pixelX += 30;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY += 20;
         break;
       case "mode1":
@@ -327,11 +327,11 @@ class IBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY -= 1;
         this.skeleton[3].blockIndexX += 1;
 
-        this.skeleton[0].pixelX -= 30;
+        this.skeleton[0].pixelX -= 60;
         this.skeleton[0].pixelY += 40;
         this.skeleton[1].pixelY += 20;
-        this.skeleton[1].pixelX -= 15;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[1].pixelX -= 30;
+        this.skeleton[3].pixelX += 30;
         this.skeleton[3].pixelY -= 20;
         break;
     }
@@ -360,12 +360,12 @@ class LBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX += 1;
         this.skeleton[3].blockIndexY += 1;
 
-        this.skeleton[0].pixelX += 30;
+        this.skeleton[0].pixelX += 60;
         this.skeleton[0].pixelY -= 40;
         this.skeleton[1].pixelY -= 20;
-        this.skeleton[1].pixelX += 15;
+        this.skeleton[1].pixelX += 30;
         this.skeleton[3].pixelY += 20;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[3].pixelX += 30;
         break;
       case "mode3":
         this.skeleton[0].blockIndexY += 2;
@@ -376,10 +376,10 @@ class LBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX -= 1;
 
         this.skeleton[0].pixelY += 40;
-        this.skeleton[0].pixelX += 30;
+        this.skeleton[0].pixelX += 60;
         this.skeleton[1].pixelY += 20;
-        this.skeleton[1].pixelX += 15;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[1].pixelX += 30;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY += 20;
         break;
       case "mode4":
@@ -391,10 +391,10 @@ class LBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX -= 1;
 
         this.skeleton[0].pixelY += 40;
-        this.skeleton[0].pixelX -= 30;
+        this.skeleton[0].pixelX -= 60;
         this.skeleton[1].pixelY += 20;
-        this.skeleton[1].pixelX -= 15;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[1].pixelX -= 30;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY -= 20;
         break;
       case "mode1":
@@ -406,10 +406,10 @@ class LBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX += 1;
 
         this.skeleton[0].pixelY -= 40;
-        this.skeleton[0].pixelX -= 30;
+        this.skeleton[0].pixelX -= 60;
         this.skeleton[1].pixelY -= 20;
-        this.skeleton[1].pixelX -= 15;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[1].pixelX -= 30;
+        this.skeleton[3].pixelX += 30;
         this.skeleton[3].pixelY -= 20;
         break;
     }
@@ -438,12 +438,12 @@ class JBlock extends TetrisBlock {
         this.skeleton[2].blockIndexX -= 1;
         this.skeleton[3].blockIndexX -= 2;
 
-        this.skeleton[0].pixelX += 15;
+        this.skeleton[0].pixelX += 30;
         this.skeleton[0].pixelY -= 20;
         this.skeleton[1].pixelY -= 40;
         this.skeleton[2].pixelY -= 20;
-        this.skeleton[2].pixelX -= 15;
-        this.skeleton[3].pixelX -= 30;
+        this.skeleton[2].pixelX -= 30;
+        this.skeleton[3].pixelX -= 60;
         break;
       case "mode3":
         this.skeleton[0].blockIndexY += 1;
@@ -453,9 +453,9 @@ class JBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX -= 1;
 
         this.skeleton[0].pixelY += 20;
-        this.skeleton[1].pixelX += 15;
+        this.skeleton[1].pixelX += 30;
         this.skeleton[2].pixelY -= 20;
-        this.skeleton[3].pixelX -= 15;
+        this.skeleton[3].pixelX -= 30;
         this.skeleton[3].pixelY -= 40;
         break;
       case "mode4":
@@ -465,10 +465,10 @@ class JBlock extends TetrisBlock {
         this.skeleton[3].blockIndexY -= 1;
         this.skeleton[3].blockIndexX += 2;
 
-        this.skeleton[0].pixelX -= 15;
+        this.skeleton[0].pixelX -= 30;
         this.skeleton[1].pixelY += 20;
-        this.skeleton[2].pixelX += 15;
-        this.skeleton[3].pixelX += 30;
+        this.skeleton[2].pixelX += 30;
+        this.skeleton[3].pixelX += 60;
         this.skeleton[3].pixelY -= 20;
         break;
       case "mode1":
@@ -478,10 +478,10 @@ class JBlock extends TetrisBlock {
         this.skeleton[3].blockIndexX += 1;
         this.skeleton[3].blockIndexY += 3;
 
-        this.skeleton[1].pixelX -= 15;
+        this.skeleton[1].pixelX -= 30;
         this.skeleton[1].pixelY += 20;
         this.skeleton[2].pixelY += 40;
-        this.skeleton[3].pixelX += 15;
+        this.skeleton[3].pixelX += 30;
         this.skeleton[3].pixelY += 60;
         break;
     }
@@ -499,9 +499,9 @@ document.onkeydown = event => {
   } else if (event.keyCode === 39) {
     // right
     if (
-      skeleton[0].blockIndexX < tetrisboard.columns - 1 &&
-      skeleton[1].blockIndexX < tetrisboard.columns - 1 &&
-      skeleton[2].blockIndexX < tetrisboard.columns - 1 &&
+      skeleton[0].blockIndexX < tetrisboard.columns - 1  &&
+      skeleton[1].blockIndexX < tetrisboard.columns - 1  &&
+      skeleton[2].blockIndexX < tetrisboard.columns - 1  &&
       skeleton[3].blockIndexX < tetrisboard.columns - 1
     ) {
       for (
@@ -510,7 +510,7 @@ document.onkeydown = event => {
         index++
       ) {
         skeleton[index].blockIndexX += 1;
-        skeleton[index].pixelX += 15;
+        skeleton[index].pixelX += 30;
       }
     }
   } else if (event.keyCode === 37) {
@@ -527,7 +527,7 @@ document.onkeydown = event => {
         index++
       ) {
         skeleton[index].blockIndexX -= 1;
-        skeleton[index].pixelX -= 15;
+        skeleton[index].pixelX -= 30;
       }
     }
   } else if (event.keyCode === 40) {
@@ -557,31 +557,31 @@ function generateTetrisBlocks() {
       "green",
       [
         {
-          blockIndexX: 10,
-          blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][10].xPosPixel,
-          pixelY: tetrisboard.grid[1][10].yPosPixel,
+          blockIndexX: 5, //10
+          blockIndexY: 1, //1
+          pixelX: tetrisboard.grid[1][5].xPosPixel,
+          pixelY: tetrisboard.grid[1][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
-          blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          blockIndexX: 6, //11
+          blockIndexY: 1, //1
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
-          blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][11].xPosPixel,
-          pixelY: tetrisboard.grid[0][11].yPosPixel,
+          blockIndexX: 6, //11
+          blockIndexY: 0,  // 0
+          pixelX: tetrisboard.grid[0][6].xPosPixel,
+          pixelY: tetrisboard.grid[0][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
-          blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][12].xPosPixel,
-          pixelY: tetrisboard.grid[0][12].yPosPixel,
+          blockIndexX: 7, //12
+          blockIndexY: 0, //0
+          pixelX: tetrisboard.grid[0][7].xPosPixel,
+          pixelY: tetrisboard.grid[0][7].yPosPixel,
           index: 1
         }
       ],
@@ -591,31 +591,31 @@ function generateTetrisBlocks() {
       "yellow",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][10].xPosPixel,
-          pixelY: tetrisboard.grid[0][10].yPosPixel,
+          pixelX: tetrisboard.grid[0][5].xPosPixel,
+          pixelY: tetrisboard.grid[0][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][11].xPosPixel,
-          pixelY: tetrisboard.grid[0][11].yPosPixel,
+          pixelX: tetrisboard.grid[0][6].xPosPixel,
+          pixelY: tetrisboard.grid[0][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][10].xPosPixel,
-          pixelY: tetrisboard.grid[1][10].yPosPixel,
+          pixelX: tetrisboard.grid[1][5].xPosPixel,
+          pixelY: tetrisboard.grid[1][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         }
       ],
@@ -625,31 +625,31 @@ function generateTetrisBlocks() {
       "red",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][10].xPosPixel,
-          pixelY: tetrisboard.grid[0][10].yPosPixel,
+          pixelX: tetrisboard.grid[0][5].xPosPixel,
+          pixelY: tetrisboard.grid[0][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][11].xPosPixel,
-          pixelY: tetrisboard.grid[0][11].yPosPixel,
+          pixelX: tetrisboard.grid[0][6].xPosPixel,
+          pixelY: tetrisboard.grid[0][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][12].xPosPixel,
-          pixelY: tetrisboard.grid[1][12].yPosPixel,
+          pixelX: tetrisboard.grid[1][7].xPosPixel,
+          pixelY: tetrisboard.grid[1][7].yPosPixel,
           index: 1
         }
       ],
@@ -659,31 +659,31 @@ function generateTetrisBlocks() {
       "purple",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][10].xPosPixel,
-          pixelY: tetrisboard.grid[0][10].yPosPixel,
+          pixelX: tetrisboard.grid[0][5].xPosPixel,
+          pixelY: tetrisboard.grid[0][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][11].xPosPixel,
-          pixelY: tetrisboard.grid[0][11].yPosPixel,
+          pixelX: tetrisboard.grid[0][6].xPosPixel,
+          pixelY: tetrisboard.grid[0][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][12].xPosPixel,
-          pixelY: tetrisboard.grid[0][12].yPosPixel,
+          pixelX: tetrisboard.grid[0][7].xPosPixel,
+          pixelY: tetrisboard.grid[0][7].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         }
       ],
@@ -693,31 +693,31 @@ function generateTetrisBlocks() {
       "Aqua",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][10].xPosPixel,
-          pixelY: tetrisboard.grid[0][10].yPosPixel,
+          pixelX: tetrisboard.grid[0][5].xPosPixel,
+          pixelY: tetrisboard.grid[0][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][11].xPosPixel,
-          pixelY: tetrisboard.grid[0][11].yPosPixel,
+          pixelX: tetrisboard.grid[0][6].xPosPixel,
+          pixelY: tetrisboard.grid[0][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][12].xPosPixel,
-          pixelY: tetrisboard.grid[0][12].yPosPixel,
+          pixelX: tetrisboard.grid[0][7].xPosPixel,
+          pixelY: tetrisboard.grid[0][7].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 13,
+          blockIndexX: 8,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][13].xPosPixel,
-          pixelY: tetrisboard.grid[0][13].yPosPixel,
+          pixelX: tetrisboard.grid[0][8].xPosPixel,
+          pixelY: tetrisboard.grid[0][8].yPosPixel,
           index: 1
         }
       ],
@@ -727,31 +727,31 @@ function generateTetrisBlocks() {
       "orange",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][10].xPosPixel,
-          pixelY: tetrisboard.grid[1][10].yPosPixel,
+          pixelX: tetrisboard.grid[1][5].xPosPixel,
+          pixelY: tetrisboard.grid[1][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][12].xPosPixel,
-          pixelY: tetrisboard.grid[1][12].yPosPixel,
+          pixelX: tetrisboard.grid[1][7].xPosPixel,
+          pixelY: tetrisboard.grid[1][7].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][12].xPosPixel,
-          pixelY: tetrisboard.grid[0][12].yPosPixel,
+          pixelX: tetrisboard.grid[0][7].xPosPixel,
+          pixelY: tetrisboard.grid[0][7].yPosPixel,
           index: 1
         }
       ],
@@ -761,31 +761,31 @@ function generateTetrisBlocks() {
       "blue",
       [
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 0,
-          pixelX: tetrisboard.grid[0][10].xPosPixel,
-          pixelY: tetrisboard.grid[0][10].yPosPixel,
+          pixelX: tetrisboard.grid[0][5].xPosPixel,
+          pixelY: tetrisboard.grid[0][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 10,
+          blockIndexX: 5,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][10].xPosPixel,
-          pixelY: tetrisboard.grid[1][10].yPosPixel,
+          pixelX: tetrisboard.grid[1][5].xPosPixel,
+          pixelY: tetrisboard.grid[1][5].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 11,
+          blockIndexX: 6,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][11].xPosPixel,
-          pixelY: tetrisboard.grid[1][11].yPosPixel,
+          pixelX: tetrisboard.grid[1][6].xPosPixel,
+          pixelY: tetrisboard.grid[1][6].yPosPixel,
           index: 1
         },
         {
-          blockIndexX: 12,
+          blockIndexX: 7,
           blockIndexY: 1,
-          pixelX: tetrisboard.grid[1][12].xPosPixel,
-          pixelY: tetrisboard.grid[1][12].yPosPixel,
+          pixelX: tetrisboard.grid[1][7].xPosPixel,
+          pixelY: tetrisboard.grid[1][7].yPosPixel,
           index: 1
         }
       ],
@@ -1301,9 +1301,10 @@ const main = () => {
 
 const tetrisboard = new TetrisBoard();
 tetrisboard.createLogicGrid();
+console.log(tetrisboard.grid);
 
 generateTetrisBlocks(); // start with one block generated
 setInitialScore();
 
-const movingBlocksInterval = setInterval(moveCurrentBlock, 1000);
-const gameInterval = setInterval(main, 80);
+// const movingBlocksInterval = setInterval(moveCurrentBlock, 1000);
+// const gameInterval = setInterval(main, 80);
