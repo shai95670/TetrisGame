@@ -3,8 +3,9 @@ const ctx = canvas.getContext("2d");
 const height = canvas.height;
 const width = canvas.width;
 const scoringBox = document.getElementById("scoreBox");
-let tetrisBlocks = [];
-let score = 0;
+var tetrisBlocks = [];
+var score = 0;
+var movingBlocksInterval, gameInterval;
 
 class Cell {
   constructor(xPos, yPos, xPosPixel, yPosPixel, containedBlock, width, height) {
@@ -1271,13 +1272,37 @@ function moveCurrentBlock() {
   }
 }
 
+// top out occures when:
+// 1. a tetromino cannot be placed at least partially within the play zone.
+// 2. garbage pieces are sent, pushing the top pieces above the spawn zone.
+function isGameOver() {
+    if (tetrisboard.grid[0][5].containedBlock.length === 1 ||
+        tetrisboard.grid[0][6].containedBlock.length === 1 ||
+        tetrisboard.grid[0][7].containedBlock.length === 1 ||
+        tetrisboard.grid[0][8].containedBlock.length === 1 ) {
+        return true;
+    } else {
+      return false;
+    }
+}
+
+function setGameOverView() {
+  ctx.clearRect(0, 0, width, height);
+  ctx.font = '48px serif';
+  ctx.fillText('Game Over', 10, 50);
+}
+
 const main = () => {
   ctx.clearRect(0, 0, width, height);
   tetrisboard.drawBoard();
   drawTetrisBlocks();
   removeZeroLengthBlocks();
 
-  //moveCurrentBlock();
+  if(isGameOver()){
+    clearInterval(gameInterval);
+    clearInterval(movingBlocksInterval);
+    setGameOverView();
+  }
 
   // if a brick collides with something on the grid that means that, ie the floor or another brick:
   // 1. we can generate a new tetris brick
@@ -1288,13 +1313,11 @@ const main = () => {
     generateTetrisBlocks();
     checkFilledRow();
   }
-
-  //isGameOver();
 };
 
 // add block flips - Done
 // add Scoring Box - Done
-// add end game
+// add end game - Done
 // add movingBlocks - Done
 // add opacity to the blocks - Done
 // reduce number of cells
@@ -1306,5 +1329,5 @@ console.log(tetrisboard.grid);
 generateTetrisBlocks(); // start with one block generated
 setInitialScore();
 
-// const movingBlocksInterval = setInterval(moveCurrentBlock, 1000);
-// const gameInterval = setInterval(main, 80);
+movingBlocksInterval = setInterval(moveCurrentBlock, 1000);
+gameInterval = setInterval(main, 80);
